@@ -8,7 +8,7 @@ async function QuizList() {
   return (
     <div className="grid grid-cols-4 gap-4">
       {quizzes.map((x) => {
-        return <QuizCard data={x} />;
+        return <QuizCard data={x} key={x.id} />;
       })}
     </div>
   );

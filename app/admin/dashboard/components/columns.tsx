@@ -1,30 +1,10 @@
 "use client";
-import { AlertModal } from "@/components/modals/alert-modal";
+import CellActions from "@/components/CellActions";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { useToast } from "@/components/ui/use-toast";
+
 import { Quiz } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import axios from "axios";
-import {
-  ArrowUpDown,
-  CircleCheck,
-  CircleX,
-  ClipboardCheck,
-  Edit,
-  MoreHorizontal,
-  Trash,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ArrowUpDown } from "lucide-react";
 
 function handleDifficulty(difficulty: string) {
   switch (difficulty) {
@@ -90,83 +70,6 @@ export const columns: ColumnDef<Quiz>[] = [
   {
     id: "actions",
     header: "Akcje",
-    cell: ({ row }) => {
-      const quiz = row.original;
-
-      const { toast } = useToast();
-
-      const router = useRouter();
-
-      const [loading, setLoading] = useState(false);
-      const [open, setOpen] = useState(false);
-
-      const onDelete = async () => {
-        try {
-          setLoading(true);
-          await axios.delete(`/api/quiz/${row.original.id}`);
-          router.refresh();
-          toast({
-            title: "Quiz usunięty.",
-            action: <CircleCheck className="text-green-500" />,
-          });
-        } catch (error) {
-          toast({
-            title: "Coś poszło nie tak.",
-            description: "Przepraszamy za utrudnienia",
-            variant: "destructive",
-            action: <CircleX className="text-white" />,
-          });
-        } finally {
-          setLoading(false);
-          setOpen(false);
-        }
-      };
-
-      return (
-        <>
-          <AlertModal
-            isOpen={open}
-            onClose={() => setOpen(false)}
-            onConfirm={onDelete}
-            loading={loading}
-          />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Otwórz menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Akcje</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => {
-                  navigator.clipboard.writeText(quiz.id);
-                  toast({
-                    title: "Quiz ID został skopiowany",
-                    action: <ClipboardCheck />,
-                  });
-                }}
-              >
-                Kopiuj quiz ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() =>
-                  router.push(`/admin/dashboard/edit/${row.original.id}`)
-                }
-              >
-                <Edit className="mr-2 h-4 w-4" />
-                Edytuj
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setOpen(true)}>
-                <Trash className="mr-2 h-4 w-4 text-red-500" />
-                Usuń
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </>
-      );
-    },
+    cell: ({ row }) => <CellActions data={row.original} />,
   },
 ];

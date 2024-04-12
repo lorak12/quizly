@@ -47,7 +47,7 @@ function Client(props: any) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, quizzes, setQuizzes]);
+  }, [quizzes, setQuizzes]);
 
   return <DataTable columns={columns} data={quizzes} filter="title" />;
 }
