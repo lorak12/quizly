@@ -9,6 +9,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,6 +48,7 @@ export default function RootLayout({
             </nav>
             <main className="mt-8 mx-16 grid grid-cols-4 gap-4">
               {children}
+              <SpeedInsights />
             </main>
             <Toaster />
             <Footer />

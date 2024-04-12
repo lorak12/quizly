@@ -24,6 +24,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@supabase/supabase-js": "^2.42.3",
     "@tanstack/react-table": "^8.15.3",
+    "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
