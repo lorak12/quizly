@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import Navbar from "@/components/Navbar";
+import Image from "next/image";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import Link from "next/link";
+import Footer from "@/components/Footer";
+import { ClerkProvider, UserButton } from "@clerk/nextjs";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +23,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <nav className="py-2 px-4 flex gap-8 justify-between items-center border-b dark:border-none">
+              <div className="flex gap-8">
+                <Link href={"/"} className="flex justify-center items-center">
+                  <Image src={"/logo.png"} alt="Logo" width={50} height={50} />
+                  <span className="text-2xl font-bold">Quizly</span>
+                </Link>
+                <Navbar />
+              </div>
+              <div className="flex justify-center items-center gap-4">
+                <ThemeSwitcher />
+                <UserButton />
+              </div>
+            </nav>
+            <main className="mt-8 mx-16 grid grid-cols-4 gap-4">
+              {children}
+            </main>
+            <Toaster />
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
