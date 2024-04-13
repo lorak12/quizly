@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="col-span-4 grid grid-cols-4">
-      <section className="col-span-2 min-h-screen">
+    <div className="col-span-4 grid grid-cols-1 sm:grid-cols-4">
+      <section className="sm:col-span-2 min-h-screen">
         <div className="flex justify-center flex-col gap-8 min-h-[50vh]">
           <h1 className="font-bold text-4xl text-left">
             Rozwijaj swoją wiedzę, baw się i zdobywaj <br /> nagrody z Quizly -{" "}
@@ -21,9 +21,9 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className="col-span-2">
+      <section className="sm:col-span-2">
         <div className="relative h-full flex justify-center items-center">
-          <div className="glass w-full h-full transform-skew">
+          <div className="glass w-full h-full transform-skew hidden sm:block">
             <div className="col-span-4 flex flex-col items-center gap-6 min-h-[90vh] mt-10">
               <h2 className="text-2xl font-bold">Quiz o Javascript</h2>
               <h2 className="text-xl text-muted-foreground">

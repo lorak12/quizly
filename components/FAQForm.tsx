@@ -65,7 +65,7 @@ function FAQForm() {
   }
 
   return (
-    <div className="max-w-[50%]">
+    <div className="sm:max-w-[50%] w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

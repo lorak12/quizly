@@ -116,16 +116,18 @@ const QuizComponent: React.FC<QuizProps> = ({ quiz }) => {
           <Button
             size="lg"
             onClick={showNextQuestion}
-            className="min-w-[300px] h-20 text-xl fixed bottom-4 left-4"
+            className="min-w-[300px] h-20 text-xl fixed bottom-4 sm:left-4"
           >
             {lastQuestion ? "Zakończ quiz" : "Następne pytanie"}{" "}
             {/* Zmiana tekstu przycisku w zależności od ostatniego pytania */}
           </Button>
         )}
         <div className="col-span-4 flex flex-col items-center gap-6 min-h-[90vh] mt-10">
-          <h2 className="text-2xl font-bold">{quiz.title}</h2>
-          <h2 className="text-xl text-muted-foreground">{quiz.description}</h2>
-          <div className="relative h-[400px] w-[60%]">
+          <h2 className="text-2xl font-bold text-center">{quiz.title}</h2>
+          <h2 className="text-xl text-muted-foreground sm:block hidden">
+            {quiz.description}
+          </h2>
+          <div className="relative sm:w-[60%] w-full aspect-video">
             <Image
               src={`https://avatar.vercel.sh/${
                 Math.random() * 1000 +
@@ -141,7 +143,7 @@ const QuizComponent: React.FC<QuizProps> = ({ quiz }) => {
             <h2 className="text-xl text-muted-foreground">
               Wybierz prawidłową odpowiedź
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
               {currentQuestion.answers.map((answer: any, index: number) => (
                 <Button
                   key={index}

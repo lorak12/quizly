@@ -14,6 +14,19 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -55,53 +68,106 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function Navbar() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Eksploruj</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
-                  >
-                    <Image
-                      src={"/logo.png"}
-                      alt="Quizly Logo"
-                      width={100}
-                      height={100}
-                    />
-                    <div className="mb-2 mt-4 text-lg font-medium">Quizly</div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Dynamiczna platforma umożliwiająca tworzenie oraz
-                      rozwiązywanie pasjonujących quizów online.
-                    </p>
-                  </a>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/about" title="O Quizly">
-                Twoje miejsce na pasjonujące quizy online i twórcze wyzwania!
-              </ListItem>
-              <ListItem href="/quizzes" title="Quizy">
-                Eksploruj naszą szeroką bazę quizów.
-              </ListItem>
-              <ListItem href="/admin/dashboard" title="Kreator Quizów">
-                Nie znalazłeś tego czego szukałeś? Stwórz własny!
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/quizzes" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Lista Quizów
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <>
+      <NavigationMenu className="sm:block hidden">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Eksploruj</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                <li className="row-span-3">
+                  <NavigationMenuLink asChild>
+                    <a
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      href="/"
+                    >
+                      <Image
+                        src={"/logo.png"}
+                        alt="Quizly Logo"
+                        width={100}
+                        height={100}
+                      />
+                      <div className="mb-2 mt-4 text-lg font-medium">
+                        Quizly
+                      </div>
+                      <p className="text-sm leading-tight text-muted-foreground">
+                        Dynamiczna platforma umożliwiająca tworzenie oraz
+                        rozwiązywanie pasjonujących quizów online.
+                      </p>
+                    </a>
+                  </NavigationMenuLink>
+                </li>
+                <ListItem href="/about" title="O Quizly">
+                  Twoje miejsce na pasjonujące quizy online i twórcze wyzwania!
+                </ListItem>
+                <ListItem href="/quizzes" title="Quizy">
+                  Eksploruj naszą szeroką bazę quizów.
+                </ListItem>
+                <ListItem href="/admin/dashboard" title="Kreator Quizów">
+                  Nie znalazłeś tego czego szukałeś? Stwórz własny!
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/quizzes" legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Lista Quizów
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <NavigationMenu className="sm:hidden block">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size={"icon"}>
+                  <Menu className="w-6  h-6" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/"
+                      >
+                        <Image
+                          src={"/logo.png"}
+                          alt="Quizly Logo"
+                          width={100}
+                          height={100}
+                        />
+                        <div className="mb-2 mt-4 text-lg font-medium">
+                          Quizly
+                        </div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Dynamiczna platforma umożliwiająca tworzenie oraz
+                          rozwiązywanie pasjonujących quizów online.
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <ListItem href="/about" title="O Quizly">
+                    Twoje miejsce na pasjonujące quizy online i twórcze
+                    wyzwania!
+                  </ListItem>
+                  <ListItem href="/quizzes" title="Quizy">
+                    Eksploruj naszą szeroką bazę quizów.
+                  </ListItem>
+                  <ListItem href="/admin/dashboard" title="Kreator Quizów">
+                    Nie znalazłeś tego czego szukałeś? Stwórz własny!
+                  </ListItem>
+                </ul>
+              </DialogContent>
+            </Dialog>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </>
   );
 }
 

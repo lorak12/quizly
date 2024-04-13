@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 function Page() {
   return (
     <>
-      <section className="col-span-2 relative min-h-screen">
+      <section className="col-span-2 relative min-h-screen hidden sm:block">
         <Image src={"/team-spirit.svg"} alt="Team spirit" fill />
       </section>
-      <section className="col-span-2">
+      <section className="sm:col-span-2 col-span-4">
         <div className="flex justify-center flex-col gap-8">
           <h1 className="font-bold text-4xl text-left">
             Poznaj naszą historię:{" "}
@@ -21,7 +21,7 @@ function Page() {
               Czym jest Quizly?
             </span>
           </h1>
-          <p className="text-muted-foreground max-w-[80%] text-left">
+          <p className="text-muted-foreground w-full sm:max-w-[80%] sm:text-left text-justify">
             Witaj na Quizly - miejscu, które jest owocem pasji do uczenia się i
             rozwoju osobistego! Nasza platforma powstała z myślą o tych, którzy
             cenią sobie zarówno zabawę, jak i możliwość poszerzania swojej
@@ -31,7 +31,7 @@ function Page() {
             wiedzą z innymi.
           </p>
 
-          <p className="text-muted-foreground max-w-[80%] text-left">
+          <p className="text-muted-foreground w-full sm:max-w-[80%] sm:text-left text-justify">
             Dołącz już dziś do Quizly i przekonaj się, jak zabawa może iść w
             parze z nauką, tworząc niezapomniane doświadczenia edukacyjne i
             rozrywkowe!

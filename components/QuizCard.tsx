@@ -57,7 +57,7 @@ function QuizCard(props: CardProps) {
   const router = useRouter();
   return (
     <Link href={`/quiz/${props.data.id}`}>
-      <Card className="dark:border-none h-[55vh] relative">
+      <Card className="dark:border-none h-[55vh] relative overflow-hidden">
         <CardHeader>
           <div className="relative w-full h-[300px]">
             <Image
@@ -83,7 +83,7 @@ function QuizCard(props: CardProps) {
             </span>
           </CardDescription>
         </CardContent>
-        <CardFooter className="justify-between absolute bottom-0 right-0">
+        <CardFooter className="justify-between absolute bottom-0 right-0 sm:block hidden">
           <Button
             size={"lg"}
             className="gap-2"

@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { ClerkProvider, SignOutButton, auth } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { LogOut } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,7 +41,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <nav className="py-2 px-4 flex gap-8 justify-between items-center border-b dark:border-none z-40">
-              <div className="flex gap-8">
+              <div className="flex gap-8 items-center">
                 <Link href={"/"} className="flex justify-center items-center">
                   <Image
                     src={"/logo.png"}
@@ -59,9 +60,18 @@ export default function RootLayout({
                 <ThemeSwitcher />
 
                 {user.userId ? (
-                  <div className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90">
-                    <SignOutButton>Wyloguj się</SignOutButton>
-                  </div>
+                  <>
+                    <div className="h-10 px-4 py-2 hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90">
+                      <SignOutButton>
+                        <span>Wyloguj się</span>
+                      </SignOutButton>
+                    </div>
+                    <div className="h-10 px-4 py-2 sm:hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90">
+                      <SignOutButton>
+                        <LogOut className="w-6 h-6" />
+                      </SignOutButton>
+                    </div>
+                  </>
                 ) : (
                   ""
                 )}

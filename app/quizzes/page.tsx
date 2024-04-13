@@ -4,13 +4,13 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Quizly - Lista quizów",
-  description: "A subpage for displaying all quizzes in our collection.",
+  description: "A sub-page for displaying all quizzes in our collection.",
 };
 
 function Page() {
   return (
     <>
-      <div className="col-span-2">
+      <div className="sm:col-span-2 col-span-4">
         <Heading
           title="Lista Quizów"
           description="Zanurz się w świat fascynujących quizów z Quizly! Niezależnie od tego, czy szukasz rozrywki czy chcesz sprawdzić swoją wiedzę, nasza platforma zapewnia wyzwania dla każdego."
