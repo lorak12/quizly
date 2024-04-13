@@ -39,11 +39,6 @@ function handleDifficulty(difficulty: string) {
 
 export const columns: ColumnDef<Quiz>[] = [
   {
-    id: "lp",
-    header: "Lp.",
-    cell: ({ row }) => <div className="capitalize">{row.index + 1}.</div>,
-  },
-  {
     accessorKey: "title",
     header: ({ column }) => {
       return (

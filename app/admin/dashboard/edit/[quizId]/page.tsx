@@ -1,6 +1,11 @@
 import prisma from "@/lib/prisma";
-import React from "react";
 import Client from "./components/update-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Quizly - Edit quiz",
+  description: "Edit the quiz",
+};
 
 async function Page({ params }: { params: { quizId: string } }) {
   const quiz = await prisma.quiz.findUnique({

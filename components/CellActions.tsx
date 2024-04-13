@@ -17,7 +17,7 @@ import {
   Trash,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 import { AlertModal } from "./modals/alert-modal";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";

@@ -1,4 +1,3 @@
-import React from "react";
 import QuizCard from "./QuizCard";
 import prisma from "@/lib/prisma";
 

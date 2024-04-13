@@ -2,6 +2,12 @@ import Heading from "@/components/Heading";
 import prisma from "@/lib/prisma";
 import AddButton from "@/components/quiz-components/AddButton";
 import Client from "./components/Client";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Quizly - Dashboard",
+  description: "Dashboard for managing quizzes",
+};
 
 async function Page() {
   const quizzes = await prisma.quiz.findMany();

@@ -31,3 +31,10 @@ model Answer {
   question   Question @relation(fields: [questionId], references: [id])
   questionId String
 }
+
+model Opinion {
+  id       String @id @default(uuid())
+  username String
+  email    String
+  opinion  String
+}

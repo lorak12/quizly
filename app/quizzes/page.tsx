@@ -1,7 +1,11 @@
 import Heading from "@/components/Heading";
 import QuizList from "@/components/QuizList";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Quizly - Lista quizów",
+  description: "A subpage for displaying all quizzes in our collection.",
+};
 
 function Page() {
   return (
