@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { QuizModal } from "../modals/quiz-modal";
@@ -17,7 +16,7 @@ function AddButton() {
   };
   const onConfirm = () => {
     setIsOpen(false);
-    router.push(`/admin/dashboard/add-quiz?questionNum=${questionNum}`);
+    router.push(`/admin/dashboard/quiz/add-quiz?questionNum=${questionNum}`);
   };
 
   return (

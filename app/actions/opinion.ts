@@ -22,3 +22,11 @@ export async function createOpinion(formData: z.infer<typeof opinionSchema>) {
   });
   revalidatePath("/");
 }
+
+export async function deleteOpinion(id: string) {
+  await prisma.opinion.delete({
+    where: {
+      id: id,
+    },
+  });
+}

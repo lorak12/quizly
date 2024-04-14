@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,9 +28,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { RefreshCcw } from "lucide-react";
+import { PartyPopper } from "lucide-react";
 import { useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const formSchema = z.object({
   title: z.string().min(5, {
@@ -56,10 +56,7 @@ const formSchema = z.object({
   ),
 });
 
-export default function Client(props: {
-  questionNum: number | undefined;
-  initialData: any;
-}) {
+export default function Client(props: { questionNum: number }) {
   const numIterations = 4;
 
   const [loading, setLoading] = useState(false);
@@ -67,22 +64,42 @@ export default function Client(props: {
   const router = useRouter();
   const { toast } = useToast();
 
+  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: props.initialData,
+    defaultValues: {
+      title: "",
+      description: "",
+      difficulty: "",
+      questions: [
+        {
+          question: "",
+          answers: [
+            {
+              answer: "",
+              isCorrect: false,
+            },
+          ],
+        },
+      ],
+    },
   });
 
   // Funkcja obsługująca wysyłkę formularza
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
-      await axios.patch(`/api/quiz/${props.initialData.id}`, values);
-      toast({
-        title: "Quiz został zaktualizowany!",
-        description: "Wszystkie zmiany zostały zapisane!",
-        action: <RefreshCcw />,
+      await axios.post("/api/quiz", values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      router.push("/admin/dashboard");
+      toast({
+        title: "Quiz został utworzony!",
+        description: "Teraz możesz podzielić się nim z innymi!",
+        action: <PartyPopper />,
+      });
+      router.push("/admin/dashboard/quiz");
       router.refresh();
       setLoading(false);
     } catch (error) {
@@ -162,7 +179,7 @@ export default function Client(props: {
             />
             {[...Array(props.questionNum)].map((_, question) => (
               <div
-                className="border p-4 rounded-md flex flex-col gap-4 dark:border-none"
+                className="border p-4 rounded-md flex flex-col gap-4 dark:border-none "
                 key={question}
               >
                 <FormField

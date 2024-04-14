@@ -11,6 +11,7 @@ import { ClerkProvider, SignOutButton, auth } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LogOut } from "lucide-react";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const inter = Inter({ subsets: ["latin"] });
 

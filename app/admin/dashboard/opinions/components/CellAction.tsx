@@ -7,20 +7,20 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import axios from "axios";
 import {
   CircleCheck,
   CircleX,
   MoreHorizontal,
   ClipboardCheck,
-  Edit,
   Trash,
+  Eye,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AlertModal } from "./modals/alert-modal";
-import { Button } from "./ui/button";
-import { useToast } from "./ui/use-toast";
+import { deleteOpinion } from "@/app/actions/opinion";
+import { AlertModal } from "@/components/modals/alert-modal";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 function CellActions({ data }: { data: any }) {
   const quiz = data;
@@ -32,13 +32,13 @@ function CellActions({ data }: { data: any }) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onDelete = async () => {
+  const onDelete = async (id: string) => {
     try {
       setLoading(true);
-      await axios.delete(`/api/quiz/${data.id}`);
+      deleteOpinion(id);
       router.refresh();
       toast({
-        title: "Quiz usunięty.",
+        title: "Opinia usunięta.",
         action: <CircleCheck className="text-green-500" />,
       });
     } catch (error) {
@@ -59,7 +59,7 @@ function CellActions({ data }: { data: any }) {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onDelete}
+        onConfirm={() => onDelete(data.id)}
         loading={loading}
       />
       <DropdownMenu>
@@ -80,14 +80,14 @@ function CellActions({ data }: { data: any }) {
               });
             }}
           >
-            Kopiuj quiz ID
+            Kopiuj opinion ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => router.push(`/admin/dashboard/quiz/edit/${data.id}`)}
+            onClick={() => router.push(`/admin/dashboard/opinions/${data.id}`)}
           >
-            <Edit className="mr-2 h-4 w-4" />
-            Edytuj
+            <Eye className="mr-2 h-4 w-4" />
+            Wyświetl
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4 text-red-500" />

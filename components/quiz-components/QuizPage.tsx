@@ -1,6 +1,6 @@
 "use client";
 import Heading from "@/components/Heading";
-import Client from "@/app/admin/dashboard/[quizId]/components/Client";
+import Client from "@/app/admin/dashboard/quiz/[quizId]/components/Client";
 import { useSearchParams } from "next/navigation";
 
 function QuizPage() {
