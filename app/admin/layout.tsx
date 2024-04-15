@@ -5,12 +5,14 @@ import Link from "next/link";
 function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Protect
-      role="org:admin"
+      permission="org:backend:database_access"
       fallback={
-        <p>
-          Nie masz odpowiednich uprawnień. Aby je uzyskać skontaktuj się z
-          administratorem
-        </p>
+        <>
+          <p>
+            Nie masz odpowiednich uprawnień. Aby je uzyskać skontaktuj się z
+            administratorem
+          </p>
+        </>
       }
     >
       <div className="fixed inset-y-0 left-0 z-10 hidden flex-col border-r bg-background sm:flex mt-[67px] w-[200px] ">
