@@ -11,7 +11,7 @@ import { ClerkProvider, SignOutButton, auth } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LogOut } from "lucide-react";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,6 +81,7 @@ export default function RootLayout({
             <main className="mt-8 mx-16 grid grid-cols-4 gap-4">
               {children}
               <SpeedInsights />
+              <Analytics />
             </main>
             <Toaster />
             <Footer />
