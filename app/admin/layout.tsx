@@ -5,7 +5,7 @@ import Link from "next/link";
 function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Protect
-      permission="org:backend:database_access"
+      role="org:admin"
       fallback={
         <>
           <p>
@@ -42,7 +42,7 @@ function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
                 Organizacje
               </Link>
               <Link
-                href="opinions"
+                href="/admin/dashboard/opinions"
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <LineChart className="h-4 w-4" />
