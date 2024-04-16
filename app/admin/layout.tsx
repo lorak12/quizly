@@ -1,8 +1,11 @@
-import { Protect } from "@clerk/nextjs";
+import { Protect, auth } from "@clerk/nextjs";
 import { Home, LineChart, Users, MessageCircleQuestion } from "lucide-react";
 import Link from "next/link";
 
 function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const user = auth();
+  console.log(user);
+
   return (
     <Protect
       role="org:admin"
