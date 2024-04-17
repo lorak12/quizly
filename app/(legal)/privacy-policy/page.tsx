@@ -15,7 +15,7 @@ function Page() {
         We use Your Personal data to provide and improve the Service. By using
         the Service, You agree to the collection and use of information in
         accordance with this Privacy Policy. This Privacy Policy has been
-        created with the help of the{" "}
+        created with the help of the
         <a
           href="https://www.freeprivacypolicy.com/free-privacy-policy-generator/"
           target="_blank"
@@ -45,15 +45,16 @@ function Page() {
           <p>
             <strong>Affiliate</strong> means an entity that controls, is
             controlled by or is under common control with a party, where
-            "control" means ownership of 50% or more of the shares, equity
-            interest or other securities entitled to vote for election of
+            &quot;control&quot; means ownership of 50% or more of the shares,
+            equity interest or other securities entitled to vote for election of
             directors or other managing authority.
           </p>
         </li>
         <li>
           <p>
-            <strong>Company</strong> (referred to as either "the Company", "We",
-            "Us" or "Our" in this Agreement) refers to Quizly.
+            <strong>Company</strong> (referred to as either &quot;the
+            Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in
+            this Agreement) refers to Quizly.
           </p>
         </li>
         <li>
@@ -112,7 +113,7 @@ function Page() {
         </li>
         <li>
           <p>
-            <strong>Website</strong> refers to Quizly, accessible from{" "}
+            <strong>Website</strong> refers to Quizly, accessible from
             <a
               href="https://quizly-pi.vercel.app/"
               rel="external nofollow noopener"
@@ -225,16 +226,16 @@ function Page() {
         </li>
       </ul>
       <p>
-        Cookies can be "Persistent" or "Session" Cookies. Persistent Cookies
-        remain on Your personal computer or mobile device when You go offline,
-        while Session Cookies are deleted as soon as You close Your web browser.
-        Learn more about cookies on the{" "}
+        Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies.
+        Persistent Cookies remain on Your personal computer or mobile device
+        when You go offline, while Session Cookies are deleted as soon as You
+        close Your web browser. Learn more about cookies on the
         <a
           href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking"
           target="_blank"
         >
           Free Privacy Policy website
-        </a>{" "}
+        </a>
         article.
       </p>
       <p>
@@ -529,8 +530,8 @@ function Page() {
       </p>
       <p>
         We will let You know via email and/or a prominent notice on Our Service,
-        prior to the change becoming effective and update the "Last updated"
-        date at the top of this Privacy Policy.
+        prior to the change becoming effective and update the &quot;Last
+        updated&quot; date at the top of this Privacy Policy.
       </p>
       <p>
         You are advised to review this Privacy Policy periodically for any
@@ -543,7 +544,7 @@ function Page() {
       </p>
       <ul>
         <li>
-          By visiting this page on our website:{" "}
+          By visiting this page on our website:
           <a
             href="https://quizly-pi.vercel.app/about"
             rel="external nofollow noopener"
