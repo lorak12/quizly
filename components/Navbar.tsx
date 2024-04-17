@@ -14,57 +14,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Image from "next/image";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { Menu } from "lucide-react";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
+import { LogIn, Menu, MessageCircleQuestion, UsersRound } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -97,13 +49,25 @@ export default function Navbar() {
                     </a>
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/about" title="O Quizly">
-                  Twoje miejsce na pasjonujące quizy online i twórcze wyzwania!
-                </ListItem>
-                <ListItem href="/quizzes" title="Quizy">
+                <ListItem
+                  href="/quizzes"
+                  title="Quizy"
+                  icon={<MessageCircleQuestion className="w-4 h-4" />}
+                >
                   Eksploruj naszą szeroką bazę quizów.
                 </ListItem>
-                <ListItem href="/admin/dashboard" title="Kreator Quizów">
+                <ListItem
+                  href="/about"
+                  title="O Quizly"
+                  icon={<UsersRound className="w-4 h-4" />}
+                >
+                  Twoje miejsce na pasjonujące quizy online i twórcze wyzwania!
+                </ListItem>
+                <ListItem
+                  href="/admin/dashboard"
+                  title="Logowanie"
+                  icon={<LogIn className="w-4 h-4" />}
+                >
                   Nie znalazłeś tego czego szukałeś? Stwórz własny!
                 </ListItem>
               </ul>
@@ -151,14 +115,26 @@ export default function Navbar() {
                       </a>
                     </NavigationMenuLink>
                   </li>
-                  <ListItem href="/about" title="O Quizly">
+                  <ListItem
+                    href="/quizzes"
+                    title="Quizy"
+                    icon={<MessageCircleQuestion className="w-4 h-4" />}
+                  >
+                    Eksploruj naszą szeroką bazę quizów.
+                  </ListItem>
+                  <ListItem
+                    href="/about"
+                    title="O Quizly"
+                    icon={<UsersRound className="w-4 h-4" />}
+                  >
                     Twoje miejsce na pasjonujące quizy online i twórcze
                     wyzwania!
                   </ListItem>
-                  <ListItem href="/quizzes" title="Quizy">
-                    Eksploruj naszą szeroką bazę quizów.
-                  </ListItem>
-                  <ListItem href="/admin/dashboard" title="Kreator Quizów">
+                  <ListItem
+                    href="/admin/dashboard"
+                    title="Logowanie"
+                    icon={<LogIn className="w-4 h-4" />}
+                  >
                     Nie znalazłeś tego czego szukałeś? Stwórz własny!
                   </ListItem>
                 </ul>
@@ -173,8 +149,8 @@ export default function Navbar() {
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<"a"> & { icon?: React.ReactNode }
+>(({ className, title, children, icon, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
@@ -186,7 +162,10 @@ const ListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
+          <div className="text-sm font-medium leading-none flex">
+            <span className="mr-2">{icon}</span>
+            {title}
+          </div>
           <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
             {children}
           </p>
