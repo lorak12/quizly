@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="p-4">
+    <footer className="p-4 sm:ml-0 ml-[57px]">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2024{" "}
@@ -18,13 +18,13 @@ function Footer() {
             </Link>
           </li>
           <li>
-            <a href="#" className="hover:underline me-4 md:me-6">
+            <a href="/privacy-policy" className="hover:underline me-4 md:me-6">
               Privacy Policy
             </a>
           </li>
           <li>
-            <a href="#" className="hover:underline me-4 md:me-6">
-              Licensing
+            <a href="/about" className="hover:underline me-4 md:me-6">
+              Kontakt
             </a>
           </li>
         </ul>

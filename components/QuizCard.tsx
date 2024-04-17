@@ -57,9 +57,9 @@ function QuizCard(props: CardProps) {
   const router = useRouter();
   return (
     <Link href={`/quiz/${props.data.id}`}>
-      <Card className="dark:border-none h-[55vh] relative overflow-hidden">
+      <Card className="dark:border-none h-[55vh] relative overflow-hidden sm:justify-normal justify-between flex flex-col">
         <CardHeader>
-          <div className="relative w-full h-[300px]">
+          <div className="relative w-full sm:h-[300px] h-[160px]">
             <Image
               src={`https://avatar.vercel.sh/${
                 props.data.description + props.data.title
@@ -86,7 +86,7 @@ function QuizCard(props: CardProps) {
         <CardFooter className="justify-between absolute bottom-0 right-0 sm:block hidden">
           <Button
             size={"lg"}
-            className="gap-2"
+            className="gap-2 z-20"
             onClick={() => router.push(`/quiz/${props.data.id}`)}
           >
             Zagraj <ArrowRight />
