@@ -251,7 +251,7 @@ export default function Client(props: { questionNum: number }) {
               </div>
             ))}
 
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Gotowe</Button>
           </form>
         </Form>
       ) : (
