@@ -18,6 +18,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Quizly - Twoja platforma quizów",
   authors: [{ name: "@lorak12" }],
+  icons: [{ url: "/logo.png" }],
 };
 
 export default function RootLayout({
