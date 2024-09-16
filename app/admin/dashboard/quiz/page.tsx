@@ -1,8 +1,9 @@
 import Heading from "@/components/Heading";
 import prisma from "@/lib/prisma";
-import AddButton from "@/components/quiz-components/AddButton";
 import Client from "../components/Client";
 import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Quizly - Dashboard",
@@ -19,7 +20,9 @@ async function Page() {
           title="Dashboard"
           description="Dodawaj, edytuj quizy dostępne w naszej platformie."
         />
-        <AddButton />
+        <Button>
+          <Link href="/admin/dashboard/quiz/new">Dodaj nowy quiz</Link>
+        </Button>
       </div>
       <Client quizzes={quizzes} />
     </div>

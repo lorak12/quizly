@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { z } from "zod";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -28,43 +28,52 @@ import { Checkbox } from "@/components/ui/checkbox";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { PartyPopper } from "lucide-react";
+import { CirclePlus, PartyPopper } from "lucide-react";
 import { useState } from "react";
 
-const formSchema = z.object({
-  title: z.string().min(5, {
-    message: "Tytuł musi mieć przynajmniej 5 znaków!",
-  }),
-  description: z.string().min(5, {
-    message: "Opis musi mieć przynajmniej 5 znaków!",
-  }),
-  difficulty: z.string(),
-  questions: z.array(
-    z.object({
-      question: z.string().min(5, {
-        message: "Pytanie musi mieć przynajmniej 5 znaków!",
-      }),
-      answers: z.array(
-        z.object({
-          answer: z.string().min(1, {
-            message: "Odpowiedz musi mieć przynajmniej 1 znak!",
-          }),
-          isCorrect: z.boolean().default(false),
-        })
-      ),
-    })
-  ),
-});
+const formSchema = z
+  .object({
+    title: z.string().min(5, {
+      message: "Tytuł musi mieć przynajmniej 5 znaków!",
+    }),
+    description: z.string().min(5, {
+      message: "Opis musi mieć przynajmniej 5 znaków!",
+    }),
+    difficulty: z.string(),
+    questions: z.array(
+      z.object({
+        question: z.string().min(5, {
+          message: "Pytanie musi mieć przynajmniej 5 znaków!",
+        }),
+        answers: z.array(
+          z.object({
+            answer: z.string().min(1, {
+              message: "Odpowiedz musi mieć przynajmniej 1 znak!",
+            }),
+            isCorrect: z.boolean(),
+          })
+        ),
+      })
+    ),
+  })
+  .refine(
+    (data) => {
+      return data.questions.every((question) =>
+        question.answers.some((answer) => answer.isCorrect)
+      );
+    },
+    {
+      message: "Każde pytanie musi mieć przynajmniej jedną poprawną odpowiedź!",
+      path: ["questions"],
+    }
+  );
 
-export default function Client(props: { questionNum: number }) {
-  const numIterations = 4;
-
+export default function Client() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const { toast } = useToast();
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,18 +83,22 @@ export default function Client(props: { questionNum: number }) {
       questions: [
         {
           question: "",
-          answers: [
-            {
-              answer: "",
-              isCorrect: false,
-            },
-          ],
+          answers: Array(4).fill({
+            answer: "",
+            isCorrect: false,
+          }),
         },
       ],
     },
   });
 
-  // Funkcja obsługująca wysyłkę formularza
+  // Handle dynamic questions using useFieldArray
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "questions",
+  });
+
+  // Handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoading(true);
@@ -142,7 +155,7 @@ export default function Client(props: { questionNum: number }) {
                     />
                   </FormControl>
                   <FormDescription>
-                    Dodaj krótki opis na temat swoje quizu.
+                    Dodaj krótki opis na temat swojego quizu.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -177,17 +190,30 @@ export default function Client(props: { questionNum: number }) {
                 </FormItem>
               )}
             />
-            {[...Array(props.questionNum)].map((_, question) => (
+
+            <Button
+              type="button"
+              onClick={() =>
+                append({
+                  question: "",
+                  answers: Array(4).fill({ answer: "", isCorrect: false }),
+                })
+              }
+            >
+              <CirclePlus className="w-4 h-4 mr-2" /> Dodaj pytanie
+            </Button>
+
+            {fields.map((field, questionIndex) => (
               <div
-                className="border p-4 rounded-md flex flex-col gap-4 dark:border-none "
-                key={question}
+                className="border p-4 rounded-md flex flex-col gap-4 dark:border-none"
+                key={field.id}
               >
                 <FormField
                   control={form.control}
-                  name={`questions.${question}.question`}
+                  name={`questions.${questionIndex}.question`}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Pytanie {question + 1}</FormLabel>
+                      <FormLabel>Pytanie {questionIndex + 1}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Czy lubisz matematykę?"
@@ -197,19 +223,21 @@ export default function Client(props: { questionNum: number }) {
                       <FormDescription>
                         Wpisz pytanie i zaznacz które odpowiedzi są poprawne
                       </FormDescription>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
                 <div className="flex gap-8 justify-between w-full flex-col sm:flex-row">
-                  {[...Array(numIterations)].map((_, answer) => {
-                    return (
+                  {form
+                    .watch(`questions.${questionIndex}.answers`)
+                    .map((_, answerIndex) => (
                       <FormField
-                        key={answer}
+                        key={answerIndex}
                         control={form.control}
-                        name={`questions.${question}.answers.${answer}.isCorrect`}
+                        name={`questions.${questionIndex}.answers.${answerIndex}.isCorrect`}
                         render={({ field }) => (
                           <FormItem className="flex flex-col justify-center gap-2 w-full">
-                            <FormLabel>Odpowiedź #{answer + 1}</FormLabel>
+                            <FormLabel>Odpowiedź #{answerIndex + 1}</FormLabel>
                             <div className="flex gap-2 h-16">
                               <FormControl>
                                 <Checkbox
@@ -220,7 +248,7 @@ export default function Client(props: { questionNum: number }) {
                               </FormControl>
                               <FormField
                                 control={form.control}
-                                name={`questions.${question}.answers.${answer}.answer`}
+                                name={`questions.${questionIndex}.answers.${answerIndex}.answer`}
                                 render={({ field }) => (
                                   <FormItem className="w-full">
                                     <FormControl>
@@ -236,22 +264,34 @@ export default function Client(props: { questionNum: number }) {
                             </div>
                             <FormDescription>
                               Podaj{" "}
-                              {answer === 0
+                              {answerIndex === 0
                                 ? "pierwszą"
-                                : `kolejną, ${answer + 1}`}{" "}
+                                : `kolejną, ${answerIndex + 1}`}{" "}
                               odpowiedź w twoim Quizie.
                             </FormDescription>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                    );
-                  })}
+                    ))}
                 </div>
+                <Button
+                  variant="destructive"
+                  onClick={() => {
+                    if (form.getValues("questions").length > 1) {
+                      remove(questionIndex);
+                    }
+                  }}
+                  className="mt-4"
+                >
+                  Usuń pytanie
+                </Button>
               </div>
             ))}
 
-            <Button type="submit">Gotowe</Button>
+            <Button type="submit" className="mt-4">
+              Gotowe
+            </Button>
           </form>
         </Form>
       ) : (
