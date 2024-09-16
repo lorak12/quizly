@@ -10,7 +10,7 @@ function QuizPage() {
   return (
     <div className="col-span-4 min-h-screen flex flex-col gap-8">
       <Heading title="Dodaj quiz" description="Utwórz swój quiz." />
-      <Client questionNum={questionNum} />
+      <Client />
     </div>
   );
 }
